@@ -1,0 +1,13 @@
+
+
+[theme]
+base="light"
+
+#primaryColor = '#d5001c' # Red
+
+primaryColor = "#f59908" # Orange
+
+
+backgroundColor = '#ffffff' # White
+
+secondaryBackgroundColor = '#c8c8c8' # Grey

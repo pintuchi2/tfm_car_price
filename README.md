@@ -1,48 +1,43 @@
-Overview
-========
+# 🚗 Web Scraper de Vehículos - Coches.net
 
-Welcome to Astronomer! This project was generated after you ran 'astro dev init' using the Astronomer CLI. This readme describes the contents of the project, as well as how to run Apache Airflow on your local machine.
+Este proyecto realiza un scraping automatizado del portal [coches.net](https://www.coches.net) para recopilar anuncios de vehículos de segunda mano. La información se guarda en una base de datos SQLite local.
 
-Project Contents
-================
 
-Your Astro project contains the following files and folders:
+## Archivos y carpetas principales:
 
-- dags: This folder contains the Python files for your Airflow DAGs. By default, this directory includes one example DAG:
-    - `example_astronauts`: This DAG shows a simple ETL pipeline example that queries the list of astronauts currently in space from the Open Notify API and prints a statement for each astronaut. The DAG uses the TaskFlow API to define tasks in Python, and dynamic task mapping to dynamically print a statement for each astronaut. For more on how this DAG works, see our [Getting started tutorial](https://www.astronomer.io/docs/learn/get-started-with-airflow).
-- Dockerfile: This file contains a versioned Astro Runtime Docker image that provides a differentiated Airflow experience. If you want to execute other commands or overrides at runtime, specify them here.
-- include: This folder contains any additional files that you want to include as part of your project. It is empty by default.
-- packages.txt: Install OS-level packages needed for your project by adding them to this file. It is empty by default.
-- requirements.txt: Install Python packages needed for your project by adding them to this file. It is empty by default.
-- plugins: Add custom or community plugins for your project to this file. It is empty by default.
-- airflow_settings.yaml: Use this local-only file to specify Airflow Connections, Variables, and Pools instead of entering them in the Airflow UI as you develop DAGs in this project.
+### dags:
 
-Deploy Your Project Locally
-===========================
+Esta carpeta contendrá el script de orquestación del WebScraping y entrenamiento del modelo, para realizar la automatización. Por el momento aún no está listo.
 
-1. Start Airflow on your local machine by running 'astro dev start'.
+### notebooks:
 
-This command will spin up 4 Docker containers on your machine, each for a different Airflow component:
+Esta carpeta contiene 5 jupyter notebooks con el desarrollo del código del tfm:
 
-- Postgres: Airflow's Metadata Database
-- Webserver: The Airflow component responsible for rendering the Airflow UI
-- Scheduler: The Airflow component responsible for monitoring and triggering tasks
-- Triggerer: The Airflow component responsible for triggering deferred tasks
+- `ml_car_price_prediction.ipynb`: Es el notebook principal, que contiene el EDA y desarrollo del modelo de machine learning implementado para la predicción del precio de los vehículos.
 
-2. Verify that all 4 Docker containers were created by running 'docker ps'.
+- `undetected_scraper.ipynb`: Este notebook contiene el script que realiza el WebScraping de [coches.net](https://www.coches.net) y guarda los registros en la tabla `TX_VEHICULOS_SEG_MANO` de la base de datos que hemos creado. Este script se moverá a un archivo `.py` y se invocará con el dag de Airflow pero falta impementarlo.
 
-Note: Running 'astro dev start' will start your project with the Airflow Webserver exposed at port 8080 and Postgres exposed at port 5432. If you already have either of those ports allocated, you can either [stop your existing Docker containers or change the port](https://www.astronomer.io/docs/astro/cli/troubleshoot-locally#ports-are-not-available-for-my-local-airflow-webserver).
+- `kaggle_dataset_cleaning.ipynb`: Notebook que contiene transformaciones y limpieza de datos para combinar los datos obtenidos mediante WebScraping con datos con otro origen: un dataset de Kaggle de vehículos de 2a mano obtenidos también mediante WebScraping.
 
-3. Access the Airflow UI for your local Airflow project. To do so, go to http://localhost:8080/ and log in with 'admin' for both your Username and Password.
+- `pruebas_scraping.ipynb`: Notebook que contiene pruebas para el desarrollo del script de scrapeo que se utiliza en el archivo `undetected_scraper.ipynb`.
 
-You should also be able to access your Postgres Database at 'localhost:5432/postgres'.
+- `transformaciones_webscraping.ipynb`: Notebook que contiene transformaciones y limpieza de datos de los datos scrapeados de [coches.net](https://www.coches.net). No tiene relevancia.
 
-Deploy Your Project to Astronomer
-=================================
+### streamlit:
 
-If you have an Astronomer account, pushing code to a Deployment on Astronomer is simple. For deploying instructions, refer to Astronomer documentation: https://www.astronomer.io/docs/astro/deploy-code/
+- `streamlit_app.py`: Aplicación web desarrollada con Streamlit que permite predecir el precio de un vehículo en base a las características que el usuario introduce (marca, modelo, año, kilómetros, combustible, etc.) utilizando el modelo generado en el notebook `ml_car_price_prediction.ipynb`.
 
-Contact
-=======
+- utils: Carpeta que contiene las transformaciones y el modelo utilizados para realizar la predicción del precio del vehículo.
 
-The Astronomer CLI is maintained with love by the Astronomer team. To report a bug or suggest a change, reach out to our support.
+### include:
+
+- utils: Carpeta que contiene un archivo `funcniones.py` con funciones reutilizables por el webscraper y transformaciones finales utilizadas para realizar la predicción del precio del vehículo.
+
+- model: Carpeta que contiene el modelo final utilizado para realizar la predicción del precio del vehículo.
+
+- data: Datos del dataset de Kaggle utilizado como origen de datos (además de los scrapeados) y de pruebas y trasnformaciones llevadas a cabo en los notebooks.
+
+- db_*.db: Estos archivos son la base de datos de tipo SQLite que utilizamos para guardar todos los registros y su Backup.
+
+### `requirements.txt`
+Lista de dependencias necesarias para ejecutar el proyecto.
