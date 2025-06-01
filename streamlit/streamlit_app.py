@@ -24,15 +24,18 @@ def cargar_modelos_datos():
 # Función principal para la calculadora de precios
 def calculadora_precios():
     marca = st.selectbox('Marca del coche:', sorted(list(marca_model_set.keys())))
-    modelo = st.selectbox('Modelo del coche:', sorted(marca_model_set[marca]))
+    # modelo = st.selectbox('Modelo del coche:', sorted(marca_model_set[marca]))
+    modelo = st.selectbox('Modelo del coche:', sorted([m.capitalize() for m in marca_model_set[marca]]))
+
     #combustible = st.selectbox('Combustible:', ('Diésel', 'Gasolina', 'Híbrido', 'Eléctrico', 'Híbrido Enchufable', 'Gas licuado (GLP)', 'Gas natural (CNG)'))
     combustible = st.radio('Combustible:', options=['Diésel', 'Gasolina', 'Híbrido', 'Eléctrico', 'Híbrido Enchufable', 'Gas licuado (GLP)', 'Gas natural (CNG)'], 
           horizontal=True)
-    anyo_vehiculo = st.number_input('Año de matriculación:', 1980, date_time.year,  step=1)
+    anyo_vehiculo = st.number_input('Año de primera matriculación:', 2015, date_time.year,  step=1)
     kilometraje = st.number_input('Número de kilómetros:', 0, 500000, step=1000)
-    potencia = st.number_input('Potencia (CV):', 0, 500, step=20)
-    num_puertas = st.number_input('Nº de puertas:', 3, 6, step=2)
-    tipo_cambio = st.selectbox('Tipo de transmisión:', ('Manual', 'Automático'))
+    potencia = st.number_input('Potencia (CV):', 90, 500, step=10)
+    # num_puertas = st.number_input('Nº de puertas:', 3, 6, step=2)
+    num_puertas = st.selectbox('Nº de puertas (incluyendo maletero)', (3, 5))
+    tipo_cambio = st.selectbox('Tipo de cambio:', ('Manual', 'Automático'))
 
     data_new = pd.DataFrame({
         'marca': marca,
@@ -88,7 +91,7 @@ def calculadora_precios():
             prediction = loaded_model.predict(data_new)
             if prediction>0:
                 st.balloons()
-                st.snow()
+                # st.snow()
                 prediction = np.exp(prediction)
                 st.success(f'El precio estimado del coche es de {round(prediction[0])} euros.')
             else:
