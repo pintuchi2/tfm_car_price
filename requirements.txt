@@ -6,6 +6,7 @@ lxml==4.9.3
 requests==2.31.0
 selenium==4.31.0
 undetected-chromedriver==3.5.5
+webdriver-manager>=4.0.1
 
 
 # numpy==1.26.3
@@ -22,3 +23,4 @@ pandas
 scikit-learn
 streamlit
 xgboost
+unidecode
