@@ -25,7 +25,7 @@ def cargar_modelos_datos():
 def calculadora_precios():
     marca = st.selectbox('Marca del coche:', sorted(list(marca_model_set.keys())))
     # modelo = st.selectbox('Modelo del coche:', sorted(marca_model_set[marca]))
-    modelo = st.selectbox('Modelo del coche:', sorted([m.capitalize() for m in marca_model_set[marca]]))
+    modelo = st.selectbox('Modelo del coche:', sorted([m for m in marca_model_set[marca]]))
 
     #combustible = st.selectbox('Combustible:', ('Diésel', 'Gasolina', 'Híbrido', 'Eléctrico', 'Híbrido Enchufable', 'Gas licuado (GLP)', 'Gas natural (CNG)'))
     combustible = st.radio('Combustible:', options=['Diésel', 'Gasolina', 'Híbrido', 'Eléctrico', 'Híbrido Enchufable', 'Gas licuado (GLP)', 'Gas natural (CNG)'], 
@@ -54,6 +54,7 @@ def calculadora_precios():
     data_new["marca"] = encoder_marca.transform(data_new["marca"])
     data_new["modelo"] = encoder_model.transform(data_new["modelo"])
 
+    
     fuel_types = {"Diésel" : 0,
             "Gasolina" : 1,
             "Híbrido" : 2,
