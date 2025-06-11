@@ -6,6 +6,7 @@ import xgboost as xgb
 import pickle
 from PIL import Image
 import sklearn
+from scipy.special import inv_boxcox
 
 # Streamlit se ejecuta siempre desde scripts (.py) y desde el cmd en la carpeta donde está el .py y con el conda activate eda_env ejecutado antes
 # pip install streamlit en la terminal
@@ -23,6 +24,9 @@ def cargar_modelos_datos():
 
 # Función principal para la calculadora de precios
 def calculadora_precios():
+
+    lambda_box = 0.2805938549051249
+
     marca = st.selectbox('Marca del coche:', sorted(list(marca_model_set.keys())))
     # modelo = st.selectbox('Modelo del coche:', sorted(marca_model_set[marca]))
     modelo = st.selectbox('Modelo del coche:', sorted([m for m in marca_model_set[marca]]))
@@ -93,7 +97,8 @@ def calculadora_precios():
             if prediction>0:
                 st.balloons()
                 # st.snow()
-                prediction = np.exp(prediction)
+                # prediction = np.exp(prediction)
+                prediction = inv_boxcox(prediction, lambda_box)
                 st.success(f'El precio estimado del coche es de {round(prediction[0])} euros.')
             else:
                 st.warning("No puedes vender este coche.")
