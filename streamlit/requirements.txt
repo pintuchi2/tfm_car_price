@@ -14,3 +14,4 @@ scikit-learn
 streamlit
 xgboost
 unidecode
+scipy

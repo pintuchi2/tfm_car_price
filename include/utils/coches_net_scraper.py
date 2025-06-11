@@ -153,9 +153,6 @@ def main_scraper():
         while pagina <= max_paginas:
             print(f"\n🔄 Procesando página {pagina}/{max_paginas}...")
             
-            # URL para las 10 marcas configuradas:
-            # url_todas_marcas = f'https://www.coches.net/segunda-mano/?MakeIds%5B0%5D=4&MakeIds%5B1%5D=7&MakeIds%5B2%5D=11&MakeIds%5B3%5D=15&MakeIds%5B4%5D=28&MakeIds%5B5%5D=32&MakeIds%5B6%5D=33&MakeIds%5B7%5D=35&MakeIds%5B8%5D=39&MakeIds%5B9%5D=47&ModelIds%5B0%5D=0&ModelIds%5B1%5D=0&ModelIds%5B2%5D=0&ModelIds%5B3%5D=0&ModelIds%5B4%5D=0&ModelIds%5B5%5D=0&ModelIds%5B6%5D=0&ModelIds%5B7%5D=0&ModelIds%5B8%5D=0&ModelIds%5B9%5D=0&Versions%5B0%5D=&Versions%5B1%5D=&Versions%5B2%5D=&Versions%5B3%5D=&Versions%5B4%5D=&Versions%5B5%5D=&Versions%5B6%5D=&Versions%5B7%5D=&Versions%5B8%5D=&Versions%5B9%5D=&pg={pagina}'
-            
             # url para 14 marcas:
             url_todas_marcas = f'https://www.coches.net/segunda-mano/?MakeIds%5B0%5D=4&MakeIds%5B1%5D=7&MakeIds%5B2%5D=11&MakeIds%5B3%5D=15&MakeIds%5B4%5D=18&MakeIds%5B5%5D=22&MakeIds%5B6%5D=28&MakeIds%5B7%5D=31&MakeIds%5B8%5D=32&MakeIds%5B9%5D=33&MakeIds%5B10%5D=35&MakeIds%5B11%5D=39&MakeIds%5B12%5D=46&MakeIds%5B13%5D=47&ModelIds%5B0%5D=0&ModelIds%5B1%5D=0&ModelIds%5B2%5D=0&ModelIds%5B3%5D=0&ModelIds%5B4%5D=0&ModelIds%5B5%5D=0&ModelIds%5B6%5D=0&ModelIds%5B7%5D=0&ModelIds%5B8%5D=0&ModelIds%5B9%5D=0&ModelIds%5B10%5D=0&ModelIds%5B11%5D=0&ModelIds%5B12%5D=0&ModelIds%5B13%5D=0&Versions%5B0%5D=&Versions%5B1%5D=&Versions%5B2%5D=&Versions%5B3%5D=&Versions%5B4%5D=&Versions%5B5%5D=&Versions%5B6%5D=&Versions%5B7%5D=&Versions%5B8%5D=&Versions%5B9%5D=&Versions%5B10%5D=&Versions%5B11%5D=&Versions%5B12%5D=&Versions%5B13%5D=&pg={pagina}'
     
