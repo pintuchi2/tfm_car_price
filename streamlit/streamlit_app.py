@@ -8,9 +8,8 @@ from PIL import Image
 import sklearn
 from scipy.special import inv_boxcox
 
-# Streamlit se ejecuta siempre desde scripts (.py) y desde el cmd en la carpeta donde está el .py y con el conda activate eda_env ejecutado antes
-# pip install streamlit en la terminal
-# Para lanzar la web ejecutar el comando: "streamlit run streamlit_app.py". Después se actualiza en la web en un botón cada vez que guardamos el .py
+
+# Para lanzar la web en local ejecutar el comando: "streamlit run streamlit_app.py". Después se actualiza en la web en un botón cada vez que guardamos el .py
 
 # Función para cargar modelos y datos
 def cargar_modelos_datos():
@@ -28,16 +27,13 @@ def calculadora_precios():
     lambda_box = 0.2805938549051249
 
     marca = st.selectbox('Marca del coche:', sorted(list(marca_model_set.keys())))
-    # modelo = st.selectbox('Modelo del coche:', sorted(marca_model_set[marca]))
     modelo = st.selectbox('Modelo del coche:', sorted([m for m in marca_model_set[marca]]))
 
-    #combustible = st.selectbox('Combustible:', ('Diésel', 'Gasolina', 'Híbrido', 'Eléctrico', 'Híbrido Enchufable', 'Gas licuado (GLP)', 'Gas natural (CNG)'))
     combustible = st.radio('Combustible:', options=['Diésel', 'Gasolina', 'Híbrido', 'Eléctrico', 'Híbrido Enchufable', 'Gas licuado (GLP)', 'Gas natural (CNG)'], 
           horizontal=True)
     anyo_vehiculo = st.number_input('Año de primera matriculación:', 2015, date_time.year,  step=1)
     kilometraje = st.number_input('Número de kilómetros:', 0, 500000, step=1000)
     potencia = st.number_input('Potencia (CV):', 90, 500, step=10)
-    # num_puertas = st.number_input('Nº de puertas:', 3, 6, step=2)
     num_puertas = st.selectbox('Nº de puertas (incluyendo maletero)', (3, 5))
     tipo_cambio = st.selectbox('Tipo de cambio:', ('Manual', 'Automático'))
 
@@ -123,16 +119,9 @@ st.header("Bienvenid@ a la App de predicción de precios de vehículos")
 
 st.subheader("Introduce las características del coche para predecir su precio:")
 
-# st.sidebar.text("Menu")
 
-# home = st.sidebar.button("Home")
-# data = st.sidebar.button("Data")
-# calculadora = st.sidebar.button("Calculadora")
 
 loaded_model, marca_model_set, encoder_marca, encoder_model, scaler = cargar_modelos_datos()
 calculadora_precios()  # Llamada a la función
 
 
-# if st.button('Recargar Página'):
-#     st.rerun()
-#     st.session_state.clear()
